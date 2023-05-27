@@ -91,15 +91,14 @@ System::Void WeatherSimulation::MyForm::button1_Click(System::Object^ sender, Sy
         g = 0;
         i = 0;
         t = 0;
-        i_new = 0;
-        t_new = 0;
+        i_prev = 0;
+        t_prev = 0;
         k = 0;
-        timer1->Start();
-
         for (int i = 0; i < 3; i++)
         {
             Dur[i] = 0;
         }
+        timer1->Start();
     }
     chart1->Series[0]->Points->AddXY(t, i);
     chart1->Series[1]->Points->AddXY(0, 0);

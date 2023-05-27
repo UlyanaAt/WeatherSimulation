@@ -249,9 +249,9 @@ namespace WeatherSimulation {
 		}
 #pragma endregion
 private: int NumOfClick;
-private: float t, t_new, t_prev;
+private: float t, t_prev;
 private: float tau = 0;
-private: int i, g, k, i_new, i_prev;
+private: int i, g, k, i_prev;
 private: const float T = 50;
 private: const int N = 100;
 private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e);
