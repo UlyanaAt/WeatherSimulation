@@ -42,7 +42,17 @@ System::Void WeatherSimulation::MyForm::timer1_Tick(System::Object^ sender, Syst
     {
         chart1->Series[1]->Points->AddXY(g, 0);
     }
+
+    if (t > T && k<N)
+    {
+        Dur[i_prev] = Dur[i_prev] + (t - t_prev);
+        i_prev = i;
+        t_prev = t;
+        k++;
+    }
     
+    i_prev = i;
+    t_prev = t;
 }
 
 System::Void WeatherSimulation::MyForm::button1_Click(System::Object^ sender, System::EventArgs^ e)
@@ -52,6 +62,27 @@ System::Void WeatherSimulation::MyForm::button1_Click(System::Object^ sender, Sy
     if (NumOfClick % 2 == 0)
     {
         timer1->Stop();
+        if (i = 0)
+        {
+            pd->Text = "sunny, day: " + ((g / 24) + 1).ToString();
+        }
+        else if (i = 1)
+        {
+            pd->Text = "clowdy, day: " + ((g / 24) + 1).ToString();
+        }
+        else
+        {
+            pd->Text = "rainy, day: " + ((g / 24) + 1).ToString();
+        }
+
+        float dur = Dur[0] + Dur[1] + Dur[2];
+        for (int i = 0; i < 3; i++)
+        {
+            Dur[i] = Dur[i]/dur;
+        }
+        sun->Text = Dur[0].ToString();
+        cl->Text = Dur[1].ToString();
+        rain->Text = Dur[2].ToString();
     }
     else
     {
@@ -59,7 +90,16 @@ System::Void WeatherSimulation::MyForm::button1_Click(System::Object^ sender, Sy
         this->chart1->Series[1]->Points->Clear();
         g = 0;
         i = 0;
+        t = 0;
+        i_new = 0;
+        t_new = 0;
+        k = 0;
         timer1->Start();
+
+        for (int i = 0; i < 3; i++)
+        {
+            Dur[i] = 0;
+        }
     }
     chart1->Series[0]->Points->AddXY(t, i);
     chart1->Series[1]->Points->AddXY(0, 0);
